@@ -1,7 +1,8 @@
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
-            <x-authentication-card-logo />
+            <img src="{{ asset('images/app/my_links_hub_logo.jpg') }}" class="rounded-full" alt="MyLinksHub Logo" width="250px" />
+            <!-- <x-authentication-card-logo /> -->
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">
