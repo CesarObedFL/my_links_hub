@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->timestamps();
-
-            $table->hasMany('link_list_links', 'link_list_id');
         });
 
         Schema::create('link_list_links', function (Blueprint $table) {
