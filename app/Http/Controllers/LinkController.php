@@ -37,9 +37,6 @@ class LinkController extends Controller
 
             $platform = $protocol . $domain;
 
-
-            $image = '';
-
             switch( $domain ) {
                 case 'cerebrodigital.net':
 
@@ -64,21 +61,21 @@ class LinkController extends Controller
         
                     //Storage::disk('public_thumbnails')->put($image_name, file_get_contents($src_image));
 
-                break;
+                    break;
                 case 'www.xataka.com.mx':
                     $alt_image = $crawler->filter('picture')->filter('img')->attr('alt');
                     $image = $crawler->selectImage($alt_image)->image();
-                break;
+                    break;
                 case 'medium.com':
                     $alt_image = $crawler->filter('picture')->filter('img')->attr('alt');
                     $image = $crawler->selectImage($alt_image)->image();
-                break;
+                    break;
                 case 'app.daily.dev':
                     $image = $crawler->selectImage('Post cover image')->image();
-                break;
+                    break;
                 default:
                     $image = $crawler->filter('picture')->filter('img')->attr('src');
-                break;
+                    break;
             }
 
 
