@@ -6,6 +6,7 @@ use LivewireUI\Modal\ModalComponent;
 
 class SavedLink extends ModalComponent
 {
+
     public function render()
     {
         return view('livewire.saved-link');
