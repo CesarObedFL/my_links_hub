@@ -19,18 +19,18 @@ class ListCreate extends ModalComponent
 
     public function render()
     {
-        return view('livewire.save-list');
+        return view('livewire.link-list.list-create');
     }
 
     public function store()
     {
         $this->validate();
 
-        LinkList::create([
+        /*LinkList::create([
             'name' => $this->name
-        ]);
+        ]);*/
 
-        $this->emit('list_created');
+        //$this->emit('list_created');
         $this->close();
         $this->alert('success', 'List created successfully!...', [ 'position' => 'center', 'timer' => 2500 ]);
     }
