@@ -4,12 +4,12 @@ namespace App\Livewire;
 
 use LivewireUI\Modal\ModalComponent;
 
-class SavedLink extends ModalComponent
+class SaveLink extends ModalComponent
 {
 
     public function render()
     {
-        return view('livewire.saved-link');
+        return view('livewire.save-link');
     }
 
     public function close()

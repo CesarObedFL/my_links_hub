@@ -59,7 +59,7 @@ class LinkController extends Controller
                     $image_name = Str::reverse($image_name);
                     $image_name = Str::substr($image_name, 0, Str::position($image_name, '?'));
         
-                    //Storage::disk('public_thumbnails')->put($image_name, file_get_contents($src_image));
+                    
 
                     break;
                 case 'www.xataka.com.mx':
@@ -78,7 +78,7 @@ class LinkController extends Controller
                     break;
             }
 
-
+            //Storage::disk('public_thumbnails')->put($image_name, file_get_contents($src_image));
             //Storage::disk('local')->delete('path/to/store/'.$filename);
 
             dd(['page_title' => $page_title, 'platform' => $platform, 'src_image' => $src_image, 'image_name' => $image_name]);
