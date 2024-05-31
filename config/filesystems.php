@@ -46,7 +46,7 @@ return [
 
         'public_thumbnails' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/images/thumbmails'),
+            'root' => storage_path('app/public/images/thumbnails'),
             'url' => env('APP_URL').'/storage/thumbnails',
             'visibility' => 'public',
             'throw' => false,
@@ -79,7 +79,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
-        public_path('thumbnails') => storage_path('app/public/thumbnails'),
+        public_path('thumbnails') => storage_path('app/public/images/thumbnails'),
     ],
 
 ];
