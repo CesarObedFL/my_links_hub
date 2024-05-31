@@ -26,9 +26,9 @@ class ListCreate extends ModalComponent
     {
         $this->validate();
 
-        /*LinkList::create([
+        LinkList::create([
             'name' => $this->name
-        ]);*/
+        ]);
 
         //$this->emit('list_created');
         $this->close();

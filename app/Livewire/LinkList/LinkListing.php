@@ -5,6 +5,7 @@ namespace App\Livewire\LinkList;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use App\Models\Link;
 use App\Models\LinkList;
 
 class LinkListing extends Component
@@ -19,33 +20,38 @@ class LinkListing extends Component
     public $order_by = 'created_at';
     public $sort_direction = 'desc';
     public $search = '';
+
     public $list_id;
+    public $list_name;
 
     public function updatingSearch()
     {
         $this->resetPage();
     }
 
-    public function mount($list_id)
+    public function mount($id)
     {
-        $this->list_id = $list_id;
+        $this->list_id = $id;
+        $this->list_name = LinkList::select('name')->where('id', $id)->get()[0];
     }
 
     public function render()
     {
         $_list_id = $this->list_id;
+        $_list_name = $this->list_name;
         $_search = $this->search;
-        return view('livewire.link-list.link-listing', [ 'link_list' => LinkList::where('id', $_list_id)
+        return view('livewire.link-list.link-listing', [ 'list_name' => $_list_name, 
+                                                        'link_list' => Link::whereRelation('link_list', 'id', $_list_id)
                                                                         ->where(function($query) use ($_search) {
                                                                             $query->when($_search, function($query, $_search) {
                                                                                 if( $_search != '' )
-                                                                                    return $query->where('name', 'LIKE', "%{$_search}%")->orWhereRelation('links', 'title', 'LIKE', "%{$_search}%");
+                                                                                    return $query->where('name', 'LIKE', "%{$_search}%");
                                                                                 return $query;
                                                                             });
                                                                         })
                                                                         ->orderBy($this->order_by, $this->sort_direction)
                                                                         ->paginate($this->per_page)
-                                                                ]);
+                                                                ])->layout('layouts.app');
     }
 
     public function order_by( $order_by_parameter )

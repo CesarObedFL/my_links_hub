@@ -1,162 +1,109 @@
 <div>
 
-    <div class="container-fluid py-4">
-        <div class="row">
-            <div class="col-12">
-                <div class="card mb-4">
-                    <div class="card-header pb-0">
-                        <div class="d-flex flex-row justify-content-between">
-                            <div>
-                                <h2 class="mb-0 font-weight-bolder opacity-4">LIST OF TICKETS</h2>
-                            </div>
-                        </div> <!-- /. div d-flex flex-row justify-content-between -->
-                        <br>
-                        <div class="d-flex flex-row justify-content">
-                            <div class="col-md-1">
-                                <select class="custom-select" wire:model="per_page">
-                                    <option value="10">10 per page</option>
-                                    <option value="25">25 per page</option>
-                                    <option value="50">50 per page</option>
-                                </select>
-                            </div> <!-- /. div col-md-1 -->
-                            <div class="col-md-1">
-                                <select class="custom-select" wire:model="status">
-                                    <option value="all">All Status</option>
-                                    <option value="solved">Solved</option>
-                                    <option value="in process">In Process</option>
-                                    <option value="pending">Pending</option>
-                                </select>
-                            </div> <!-- /. div col-md-1 -->
-                            <div class="col-md-1">
-                                <select class="custom-select" wire:model="priority">
-                                    <option value="all">All Priorities</option>
-                                    <option value="high">High</option>
-                                    <option value="medium">Medium</option>
-                                    <option value="low">Low</option>
-                                </select>
-                            </div> <!-- /. div col-md-1 -->
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" placeholder="search ticket by author or problem..." wire:model="search">
-                            </div> <!-- /. div col-md-9 -->
-                        </div> <!-- /. div d-flex flex-row justify-content -->
-                    </div> <!-- /. div card-header pb-0 -->
+    <header class="bg-white shadow">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ $list_name->name }}
+            </h2>
+        </div>
+    </header>
 
-                    <br> <hr> <br>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
 
-                    <div class="card-body px-0 pt-0 pb-2">
-                        <div class="table-responsive p-0">
-                            <table class="table align-items-center mb-0">
-                                <thead>
-                                    <tr>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Author
-                                        </th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2" role="button" wire:click="order_by('problem')">Problem
-                                            @if ( $order_by == 'problem' )
-                                                @if ( $sort_direction == 'asc' ) <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i> @else <i class="fas fa-sort-alpha-down-alt float-right mt-1"></i> @endif
-                                            @else 
-                                                <i class="fas fa-sort float-right mt-1"></i>
-                                            @endif
-                                        </th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" role="button" wire:click="order_by('created_at')">Created at
-                                            @if ( $order_by == 'created_at' )
-                                                @if ( $sort_direction == 'asc' ) <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i> @else <i class="fas fa-sort-alpha-down-alt float-right mt-1"></i> @endif
-                                            @else 
-                                                <i class="fas fa-sort float-right mt-1"></i>
-                                            @endif
-                                        </th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" role="button" wire:click="order_by('asigned_to')">Asigned To
-                                            @if ( $order_by == 'asigned_to' )
-                                                @if ( $sort_direction == 'asc' ) <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i> @else <i class="fas fa-sort-alpha-down-alt float-right mt-1"></i> @endif
-                                            @else 
-                                                <i class="fas fa-sort float-right mt-1"></i>
-                                            @endif
-                                        </th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" role="button" wire:click="order_by('status')">Status
-                                            @if ( $order_by == 'status' )
-                                                @if ( $sort_direction == 'asc' ) <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i> @else <i class="fas fa-sort-alpha-down-alt float-right mt-1"></i> @endif
-                                            @else 
-                                                <i class="fas fa-sort float-right mt-1"></i>
-                                            @endif
-                                        </th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" role="button" wire:click="order_by('priority')">Priority
-                                            @if ( $order_by == 'priority' )
-                                                @if ( $sort_direction == 'asc' ) <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i> @else <i class="fas fa-sort-alpha-down-alt float-right mt-1"></i> @endif
-                                            @else 
-                                                <i class="fas fa-sort float-right mt-1"></i>
-                                            @endif
-                                        </th>
-                                        <th class="text-secondary opacity-7"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach( $link_list as $link )
-                                    <tr> 
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $link->user->name }}</h6>
-                                                    <p class="text-xs text-secondary mb-0">{{ $link->user->email }}</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <p class="text-xs font-weight-bold mb-0">{{ $link->problem }}</p>
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="text-secondary text-xs font-weight-bold">{{ $link->created_at }}</span>
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <p class="text-xs font-weight-bold mb-0">{{ $link->asignedTo->name ?? 'unasigned' }}</p>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="badge badge-sm @if( $link->status == 'solved' ) bg-gradient-success @elseif( $link->status == 'pending' ) bg-gradient-danger @else bg-gradient-info @endif"
-                                                role="button" wire:click="change_ticket_status({{ $link->id }})">
-                                                {{ $link->status }}
-                                            </span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="badge badge-sm @if( $link->priority == 'high' ) bg-gradient-success @elseif( $link->priority == 'medium' ) bg-gradient-warning @else bg-gradient-danger @endif"
-                                                role="button" wire:click="change_priority({{ $link->id }})">
-                                                {{ $link->priority }}
-                                            </span>
-                                        </td>
-                                        <td class="align-middle">
-                                            <a class="text-secondary font-weight-bold text-xs" href="{{ route('ticket-show', [ 'id' => $link->id ]) }}"
-                                                data-bs-toggle="tooltip" data-bs-original-title="show ticket">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                            &nbsp;
-                                            <button class="text-secondary font-weight-bold text-xs" onclick="Livewire.emit('openModal', 'tickets.ticket-asign', {{ json_encode(['ticket_id' => $link->id]) }})"
-                                                data-bs-toggle="tooltip" data-bs-original-title="asign user to ticket">
-                                                <i class="fas fa-user-plus"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div> <!-- /. div table-responsive p-0 -->
-                    </div> <!-- /. div card-body px-0 pt-0 pb-2 -->
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3"> 
+                                    <label for="small" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Per Page</label>
+                                    <select wire:model="per_page" class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <option value="10">10 per page</option>
+                                        <option value="25">25 per page</option>
+                                        <option value="50">50 per page</option>
+                                    </select>
+                                </th>
+                                <th colspan="3" scope="colgroup" class="px-6 py-3"> 
+                                    <input type="text" wire:model="search" placeholder="search by..." class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                </th> <!-- /. div col-md-9 -->
+                            </tr>
+                            <tr>
+                                <th scope="col" class="px-6 py-3"> 
+                                    Thumbnail
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    <div class="flex items-center">
+                                        Platform
+                                        <a href="#">
+                                            <svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    <div class="flex items-center">
+                                        title
+                                        <a href="#">
+                                            <svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    <span class="sr-only">Actions</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach( $link_list as $link )
+                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                    <!--
+                                    <td class="p-4">
+                                        <img src="/docs/images/products/apple-watch.png" class="w-16 md:w-32 max-w-full max-h-full" alt="Apple Watch">
+                                    </td> 
+                                    -->
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ $link->thumbnail }}
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        {{ $link->platform }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ $link->title }}
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <a href="{{ $link->url }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" target="_blank">GO</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" scope="colgroup" class="px-6 py-3">
+                                    @if ( $link_list->count() )
+                                        {{ $link_list->links() }}
+                                    @else
+                                        <p>There isn't results searching "{{ $search }}" in the page showing {{ $per_page }} per page...</p>
+                                    @endif
+                                </td>
+                            </tr>   
+                        </tfoot>
+                    </table>
 
-                    <div class="card-footer">
-                        <br>
-                        @if ( $tickets->count() )
-                            {{ $tickets->links() }}
-                        @else
-                            <p>There isn't results searching "{{ $search }}" in the page {{ $page }} showing {{ $per_page }} per page...</p>
-                        @endif
-                    </div> <!-- /. div card-footer -->
-
-                    <div wire:loading.table>
-                        <div class="d-flex align-items-center ms-5 me-5 mb-3">
-                            <strong>Loading...</strong>
-                            <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
-                        </div>
+                    <div wire:loading.table role="status">
+                        <svg aria-hidden="true" class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                            <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                        </svg>
+                        <span class="sr-only">Loading...</span>
                     </div> <!-- /. div wire:loading.table -->
 
-                </div> <!-- /. div card mb-4 -->
-            </div> <!-- /. div col-12 -->
-        </div> <!-- /. div row -->
-    </div> <!-- /. div container-fluid py-4 -->
+                </div> <!-- /. class="relative overflow-x-auto shadow-md sm:rounded-lg" -->
+            </div> <!-- /. class="bg-white overflow-hidden shadow-xl sm:rounded-lg" -->
+        </div> <!-- /. class="max-w-7xl mx-auto sm:px-6 lg:px-8" -->
+    </div> <!-- /. class="py-12" -->
 
 </div>

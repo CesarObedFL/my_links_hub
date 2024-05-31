@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\LinkListController;
 
+use App\Livewire\LinkList\LinkListing;
+
 Route::get('/', function () {
     return redirect('/login');
 });
@@ -21,6 +23,6 @@ Route::middleware([
 
     Route::post('/links/save', [LinkController::class, 'save'])->name('save-link');
     
-    Route::post('/list/save', [LinkListController::class, 'save'])->name('save-list');
+    Route::get('/link-list/{id}', LinkListing::class)->name('link-list');
 
 });

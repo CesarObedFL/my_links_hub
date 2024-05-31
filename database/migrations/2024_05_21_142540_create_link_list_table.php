@@ -17,7 +17,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('link_list_links', function (Blueprint $table) {
+        /*Schema::create('link_list_links', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('link_list_id');
             $table->unsignedBigInteger('link_id');
@@ -25,7 +25,7 @@ return new class extends Migration
 
             $table->foreign('link_list_id')->references('id')->on('link_lists')->onDelete('cascade');
             $table->foreign('link_id')->references('id')->on('saved_links')->onDelete('cascade');
-        });
+        });*/
     }
 
     /**
@@ -33,7 +33,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('link_list_links');
+        //Schema::dropIfExists('link_list_links');
         Schema::dropIfExists('link_lists');
     }
 };

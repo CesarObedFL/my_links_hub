@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('platform');
             $table->string('thumbnail')->nullable();
+            $table->unsignedBigInteger('link_list_id');
+            $table->foreign('link_list_id')->references('id')->on('link_lists')->onDelete('cascade');
             $table->timestamps();
         });
     }
