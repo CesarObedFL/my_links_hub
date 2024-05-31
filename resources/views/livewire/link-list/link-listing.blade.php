@@ -100,6 +100,7 @@
                         </svg>
                         <span class="sr-only">Loading...</span>
                     </div> <!-- /. div wire:loading.table -->
+                    
 
                 </div> <!-- /. class="relative overflow-x-auto shadow-md sm:rounded-lg" -->
             </div> <!-- /. class="bg-white overflow-hidden shadow-xl sm:rounded-lg" -->
