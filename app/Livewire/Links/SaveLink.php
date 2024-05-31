@@ -1,25 +1,42 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Livewire\Links;
 
-//use App\Exceptions\InvalidArgumentException;
+use LivewireUI\Modal\ModalComponent;
+use App\Http\Livewire\Auth;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 use App\Models\Link;
+use App\Models\LinkList;
 
 use Goutte\Client;
 use Symfony\Component\HttpClient\HttpClient;
 
-
-class LinkController extends Controller
+class SaveLink extends ModalComponent
 {
+    use LivewireAlert;
 
-    public static function save(Request $request)
+    public $url;
+    public $link_list_id;
+
+    protected $rules = [
+        'url' => 'required',
+        'link_list_id' => 'required'
+    ];
+
+    public function render()
     {
-        if (Str::isUrl($request->get('url'), ['http', 'https'])) {
+        return view('livewire.links.save-link', [ "link_list" => LinkList::all() ]);
+    }
+
+    public function save()
+    {
+        $this->validate();
+
+        if (Str::isUrl($this->url, ['http', 'https'])) {
 
             $client = new Client(HttpClient::create(['timeout' => 60]));
             $crawler = $client->request('GET', $request->get('url'));
@@ -82,14 +99,44 @@ class LinkController extends Controller
             //dd(['page_title' => $page_title, 'platform' => $platform, 'src_image' => $src_image, 'image_name' => $image_name, 'link_list_id' => $request->get('link_list_id')]);
 
             Link::create([
-                'url' => $request->get('url'), 
+                'url' => $this->url, 
                 'title' => $page_title, 
                 'platform' => $platform, 
                 'thumbnail' => $image_name, 
-                'link_list_id' => $request->get('link_list_id')
+                'link_list_id' => $this->link_list_id
             ]);
 
         }
+
+        //$this->emit('link_saved');
+        $this->close();
+        $this->alert('success', 'Link saved successfully!...', [ 'position' => 'center', 'timer' => 2500 ]);
     }
 
+    public function reset_fields()
+    {
+        $this->url = '';
+        $this->link_list_id = '';
+    }
+
+    public function close()
+    {
+        $this->reset_fields();
+        $this->closeModal();
+    }
+
+    public static function modalMaxWidth(): string
+    {
+        return 'lg';
+    }
+
+    public static function closeModalOnEscape(): bool
+    {
+        return false;
+    }
+
+    public static function closeModalOnClickAway(): bool
+    {
+        return false;
+    }
 }

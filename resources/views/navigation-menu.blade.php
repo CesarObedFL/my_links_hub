@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <button onclick="Livewire.dispatch('openModal', { component: 'save-link' })">Save Link</button>
+                    <button onclick="Livewire.dispatch('openModal', { component: 'links.save-link' })">Save Link</button>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
