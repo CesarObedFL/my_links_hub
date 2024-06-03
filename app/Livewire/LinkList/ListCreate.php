@@ -14,7 +14,7 @@ class ListCreate extends ModalComponent
     public $name;
 
     protected $rules = [
-        'name' => 'required|max:30|min:5'
+        'name' => 'required|max:30|min:3'
     ];
 
     public function render()
@@ -26,11 +26,9 @@ class ListCreate extends ModalComponent
     {
         $this->validate();
 
-        LinkList::create([
-            'name' => $this->name
-        ]);
+        //LinkList::create([ 'name' => $this->name ]);
 
-        //$this->emit('list_created');
+        $this->dispatch('list_created');
         $this->close();
         $this->alert('success', 'List created successfully!...', [ 'position' => 'center', 'timer' => 2500 ]);
     }

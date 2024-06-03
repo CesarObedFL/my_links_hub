@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\LinkController;
-use App\Http\Controllers\LinkListController;
 
+use App\Livewire\Dashboard;
 use App\Livewire\LinkList\LinkListing;
 
 Route::get('/', function () {
@@ -17,9 +17,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
     
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', Dashboard::class)->name('dashboard');
 
     Route::post('/links/save', [LinkController::class, 'save'])->name('save-link');
     

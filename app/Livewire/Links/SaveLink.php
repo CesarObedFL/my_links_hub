@@ -108,7 +108,7 @@ class SaveLink extends ModalComponent
 
         }
 
-        //$this->emit('link_saved');
+        $this->dispatch('link_saved');
         $this->close();
         $this->alert('success', 'Link saved successfully!...', [ 'position' => 'center', 'timer' => 2500 ]);
     }
