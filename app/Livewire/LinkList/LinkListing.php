@@ -12,7 +12,7 @@ class LinkListing extends Component
 {
     use WithPagination, LivewireAlert;
 
-    protected $listeners = [ 'list_created' => 'render', 'refreshComponent' => '$refresh'];
+    protected $listeners = [ 'list_created' => 'render', 'link_saved' => 'link_saved_alert', 'refreshComponent' => '$refresh'];
 
     protected $queryString = [ 'search' => [ 'except' => '' ], 'platform' => [ 'except' => 'all' ], 'title' => [ 'except' => 'all' ], 'per_page' ];
 

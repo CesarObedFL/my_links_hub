@@ -27,6 +27,8 @@ class SaveLink extends ModalComponent
         'link_list_id' => 'required'
     ];
 
+    protected $listeners = [ 'list_created' => 'create_list_alert', 'link_saved' => 'render', 'refreshComponent' => '$refresh'];
+
     public function render()
     {
         return view('livewire.links.save-link', [ "link_list" => LinkList::all() ]);
@@ -39,12 +41,12 @@ class SaveLink extends ModalComponent
         if (Str::isUrl($this->url, ['http', 'https'])) {
 
             $client = new Client(HttpClient::create(['timeout' => 60]));
-            $crawler = $client->request('GET', $request->get('url'));
+            $crawler = $client->request('GET', $this->url);
             
             $page_title = $crawler->filter('title')->text();
 
-            $protocol =  Str::substr($request->get('url'), 0, Str::position($request->get('url'), '://') + 3);
-            $url = Str::substr($request->get('url'), Str::position($request->get('url'), '://') + 3, Str::length($request->get('url')));
+            $protocol =  Str::substr($this->url, 0, Str::position($this->url, '://') + 3);
+            $url = Str::substr($this->url, Str::position($this->url, '://') + 3, Str::length($this->url));
             
             if ( Str::of($url)->contains('medium.com') ){
                 $domain = 'medium.com';
@@ -96,7 +98,7 @@ class SaveLink extends ModalComponent
             Storage::disk('public_thumbnails')->put($image_name, file_get_contents($src_image));
             //Storage::disk('local')->delete('path/to/store/'.$filename);
 
-            //dd(['page_title' => $page_title, 'platform' => $platform, 'src_image' => $src_image, 'image_name' => $image_name, 'link_list_id' => $request->get('link_list_id')]);
+            //dd(['page_title' => $page_title, 'platform' => $platform, 'src_image' => $src_image, 'image_name' => $image_name, 'link_list_id' => $this->link_list_id]);
 
             Link::create([
                 'url' => $this->url, 
@@ -138,5 +140,10 @@ class SaveLink extends ModalComponent
     public static function closeModalOnClickAway(): bool
     {
         return false;
+    }
+
+    public function create_list_alert()
+    {
+        $this->alert('success', 'List created successfully!...', [ 'position' => 'center', 'timer' => 2500 ]);
     }
 }
