@@ -19,9 +19,9 @@
                                 <th scope="col" class="px-6 py-3"> 
                                     <label for="small" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Per Page</label>
                                     <select wire:model.live="per_page" class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <option value="1">10 per page</option>
-                                        <option value="2">25 per page</option>
-                                        <option value="5">50 per page</option>
+                                        <option value="10">10 per page</option>
+                                        <option value="25">25 per page</option>
+                                        <option value="50">50 per page</option>
                                     </select>
                                 </th>
                                 <th colspan="3" scope="colgroup" class="px-6 py-3"> 
