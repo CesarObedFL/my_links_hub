@@ -12,11 +12,22 @@ class LinkListing extends Component
 {
     use WithPagination, LivewireAlert;
 
-    protected $listeners = [ 'list_created' => 'render', 'link_saved' => 'link_saved_alert', 'refreshComponent' => '$refresh'];
+    protected $listeners = [ 
+        'list_created' => 'render', 
+        'link_saved' => 'link_saved_alert', 
+        'refreshComponent' => '$refresh'
+    ];
 
-    protected $queryString = [ 'search' => [ 'except' => '' ], 'platform' => [ 'except' => 'all' ], 'title' => [ 'except' => 'all' ], 'per_page' ];
+    protected $queryString = [ 
+        'search' => [ 'except' => '' ],
+        'page' => [ 'except' => 1 ],
+        'platform' => [ 'except' => 'all' ], 
+        'title' => [ 'except' => 'all' ], 
+        'per_page' 
+    ];
 
-    public $per_page = 10;
+    public $page;
+    public $per_page = 3;
     public $order_by = 'created_at';
     public $sort_direction = 'desc';
     public $search = '';
@@ -37,14 +48,9 @@ class LinkListing extends Component
 
     public function render()
     {
-        $_list_id = $this->list_id;
-        $_list_name = $this->list_name;
         $_search = $this->search;
-        $_order_by = $this->order_by;
-        $_sort_direction = $this->sort_direction;
-        $_per_page = $this->per_page;
-        return view('livewire.link-list.link-listing', [ 'list_name' => $_list_name, 
-                                                        'link_list' => Link::whereRelation('link_list', 'id', $_list_id)
+        return view('livewire.link-list.link-listing', [ 'list_name' => $this->list_name, 
+                                                        'link_list' => Link::whereRelation('link_list', 'id', $this->list_id)
                                                                         ->where(function($query) use ($_search) {
                                                                             $query->when($_search, function($query, $_search) {
                                                                                 if( $_search != '' )
@@ -52,8 +58,8 @@ class LinkListing extends Component
                                                                                 return $query;
                                                                             });
                                                                         })
-                                                                        ->orderBy($_order_by, $_sort_direction)
-                                                                        ->paginate($_per_page)
+                                                                        ->orderBy($this->order_by, $this->sort_direction)
+                                                                        ->paginate($this->per_page)
                                                                 ])->layout('layouts.app');
     }
 
