@@ -15,6 +15,7 @@ class LinkListing extends Component
     protected $listeners = [ 
         'list_created' => 'render', 
         'link_saved' => 'link_saved_alert', 
+        'link_deleted' => 'render',
         'refreshComponent' => '$refresh'
     ];
 
@@ -27,7 +28,7 @@ class LinkListing extends Component
     ];
 
     public $page;
-    public $per_page = 3;
+    public $per_page = 10;
     public $order_by = 'created_at';
     public $sort_direction = 'desc';
     public $search = '';
@@ -73,6 +74,12 @@ class LinkListing extends Component
         }
 
         $this->dispatch('refreshComponent');
+    }
+
+    public function delete_link( $link_id )
+    {
+        Link::findOrFail($link_id)->delete();
+        $this->alert('success', 'Link deleted successfully!...', [ 'position' => 'center', 'timer' => 3000 ]);
     }
 
 }
