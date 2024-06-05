@@ -48,19 +48,20 @@ class SaveLink extends ModalComponent
             $protocol =  Str::substr($this->url, 0, Str::position($this->url, '://') + 3);
             $url = Str::substr($this->url, Str::position($this->url, '://') + 3, Str::length($this->url));
             
-            if ( Str::of($url)->contains('medium.com') ){
+            if ( Str::of($this->url)->contains('medium.com') ){
                 $domain = 'medium.com';
+            } elseif ( Str::of($this->url)->contains('youtu') ){
+                $domain = 'youtube.com';
             } else {
-                $domain = Str::substr($url, 0, Str::position($url, '/'));
+                $domain = Str::substr($this->url, 0, Str::position($this->url, '/'));
             }
+
+            
 
             $platform = $protocol . $domain;
 
             switch( $domain ) {
                 case 'cerebrodigital.net':
-
-                    //$alt_image = $crawler->filter('.wp-block-post-featured-image')->filter('img')->attr('alt');
-                    //$image = $crawler->selectImage($alt_image)->image();
 
                     try {
                         $src_image = $crawler->filter('.wp-block-post-featured-image')->filter('img')->attr('srcset');
@@ -89,6 +90,15 @@ class SaveLink extends ModalComponent
                     break;
                 case 'app.daily.dev':
                     $image = $crawler->selectImage('Post cover image')->image();
+                    break;
+                case 'youtube.com':
+                    $image_name = Str::substr($this->url, Str::position($this->url, 'v='), Str::length($this->url));
+                    if (  Str::of($image_name)->contains('&') ) {
+                        $image_name = Str::substr($image_name, Str::position($image_name, 'v=') + 2, Str::position($image_name, '&') - 2);
+                    } else {
+                        $image_name = Str::substr($image_name, Str::position($image_name, 'v=') + 2, Str::length($image_name));
+                    }
+                    $src_image = "http://img.youtube.com/vi/{$image_name}/mqdefault.jpg";
                     break;
                 default:
                     $image = $crawler->filter('picture')->filter('img')->attr('src');

@@ -15,6 +15,7 @@ class LinkListing extends Component
 
     protected $listeners = [ 
         'list_created' => 'render', 
+        'link_saved' => 'render',
         'refreshComponent' => '$refresh'
     ];
 
