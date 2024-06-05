@@ -4,6 +4,7 @@ namespace App\Livewire\LinkList;
 
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\Attributes\On;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use App\Models\Link;
 use App\Models\LinkList;
@@ -14,8 +15,6 @@ class LinkListing extends Component
 
     protected $listeners = [ 
         'list_created' => 'render', 
-        'link_saved' => 'link_saved_alert', 
-        'link_deleted' => 'render',
         'refreshComponent' => '$refresh'
     ];
 
@@ -80,6 +79,7 @@ class LinkListing extends Component
     {
         Link::findOrFail($link_id)->delete();
         $this->alert('success', 'Link deleted successfully!...', [ 'position' => 'center', 'timer' => 3000 ]);
+        $this->dispatch('refreshComponent');
     }
 
 }
