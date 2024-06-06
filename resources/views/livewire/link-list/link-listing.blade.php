@@ -103,7 +103,11 @@
                             @foreach( $link_list as $link )
                                 <tr wire:key="{{ $link->id }}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">                                    
                                     <td class="p-4">
-                                        <img src="{{ asset('thumbnails/'.$link->thumbnail) }}" class="w-16 md:w-32 max-w-full max-h-full" alt="">
+                                        @if ( $link->thumbnail )
+                                            <img src="{{ asset('thumbnails/'.$link->thumbnail) }}" class="w-16 md:w-32 max-w-full max-h-full" alt="{{ $link->thumbnail }}">
+                                        @else 
+                                            <img src="{{ asset('images/app/default_image.png') }}" class="w-20 md:w-40 max-w-full max-h-full" alt="default image">
+                                        @endif
                                     </td>
                                     <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white" >
                                         {{ $link->platform }}

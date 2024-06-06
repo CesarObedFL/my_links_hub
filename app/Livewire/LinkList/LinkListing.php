@@ -81,7 +81,9 @@ class LinkListing extends Component
     public function delete_link( $link_id )
     {
         $link = Link::findOrFail($link_id);
-        Storage::disk('public_thumbnails')->delete($link->thumbnail);
+        if ( $link->thumbnail ) {
+            Storage::disk('public_thumbnails')->delete($link->thumbnail);
+        }
         $link->delete();
         $this->alert('success', 'Link deleted successfully!...', [ 'position' => 'center', 'timer' => 3000 ]);
         $this->dispatch('refreshComponent');

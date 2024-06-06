@@ -102,11 +102,13 @@ class SaveLink extends ModalComponent
                     break;
 
                 default:
-                    $image = $crawler->filter('picture')->filter('img')->attr('src');
+                    $image_name = null;
                     break;
             }
 
-            Storage::disk('public_thumbnails')->put($image_name, file_get_contents($src_image));
+            if ( $image_name ) {
+                Storage::disk('public_thumbnails')->put($image_name, file_get_contents($src_image));
+            }
 
             //dd(['page_title' => $page_title, 'platform' => $platform, 'src_image' => $src_image, 'image_name' => $image_name, 'link_list_id' => $this->link_list_id]);
 
