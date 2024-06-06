@@ -46,7 +46,7 @@ class LinkListing extends Component
     public function mount($id)
     {
         $this->list_id = $id;
-        $this->list_name = LinkList::select('name')->where('id', $id)->get()[0];
+        $this->list_name = LinkList::select('list_name')->where('id', $id)->get()[0];
     }
 
     public function render()

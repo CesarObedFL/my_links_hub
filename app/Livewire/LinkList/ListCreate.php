@@ -2,20 +2,26 @@
 
 namespace App\Livewire\LinkList;
 
-use LivewireUI\Modal\ModalComponent;
 use App\Http\Livewire\Auth;
+use LivewireUI\Modal\ModalComponent;
+use Livewire\Attributes\Validate;
+use Livewire\WithFileUploads;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use App\Models\LinkList;
 
 class ListCreate extends ModalComponent
 {
-    use LivewireAlert;
+    use LivewireAlert, WithFileUploads;
 
-    public $name;
+    #[Validate('required|max:30|min:3', message: 'The list name must be between 3 and 30 letters and is required!...')] 
+    public $list_name;
 
-    protected $rules = [
-        'name' => 'required|max:30|min:3'
-    ];
+    #[Validate('required|min:10', message: 'The list description must have more than 10 letters and is required!...')] 
+    public $list_description;
+
+    #[Validate('required|image|max:2048', message: 'The list image couldn\'t be higer than 2kb and is required!')] 
+    public $list_image;
+
 
     public function render()
     {
@@ -26,7 +32,15 @@ class ListCreate extends ModalComponent
     {
         $this->validate();
 
-        LinkList::create([ 'name' => $this->name ]);
+        $filename = $this->list_image->getClientOriginalName();
+        $this->list_image->storeAs('/', $filename, 'public_list_images');
+
+        LinkList::create([ 
+            'list_name' => $this->list_name, 
+            'list_description' => $this->list_description,
+            'list_image' => $filename
+        ]);
+
 
         $this->dispatch('list_created');
         $this->close();
@@ -35,7 +49,9 @@ class ListCreate extends ModalComponent
 
     public function reset_fields()
     {
-        $this->name = '';
+        $this->list_name = '';
+        $this->list_description = '';
+        $this->list_image = null;
     }
 
     public function close()

@@ -14,13 +14,12 @@ class LinkList extends Model
 
     protected $table = 'link_lists';
 
-    protected $fillable = [ 'name' ];
+    protected $fillable = [ 'list_name', 'list_description', 'list_image' ];
 
 
     // relationships
     public function links(): HasMany
     {
-        //return $this->belongsToMany(Link::class, 'link_list_links');
         return $this->hasMany(Link::class);
     }
 }

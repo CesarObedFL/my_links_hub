@@ -28,8 +28,7 @@ class Dashboard extends Component
 
     public function render()
     {
-        return view('livewire.dashboard', [ 'lists' => LinkList::all() ])
-                    ->layout('layouts.app');
+        return view('livewire.dashboard', [ 'lists' => LinkList::all() ])->layout('layouts.app');
     }
 
     public function create_list_alert()

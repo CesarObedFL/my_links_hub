@@ -52,6 +52,14 @@ return [
             'throw' => false,
         ],
 
+        'public_list_images' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/images/list_images'),
+            'url' => env('APP_URL').'/storage/list_images',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -79,6 +87,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('list_images') => storage_path('app/public/images/list_images'),
         public_path('thumbnails') => storage_path('app/public/images/thumbnails'),
     ],
 
