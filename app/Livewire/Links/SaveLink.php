@@ -56,8 +56,6 @@ class SaveLink extends ModalComponent
                 $domain = Str::substr($this->url, 0, Str::position($this->url, '/'));
             }
 
-            
-
             $platform = $protocol . $domain;
 
             switch( $domain ) {
@@ -73,24 +71,26 @@ class SaveLink extends ModalComponent
 
                     $src_image = Str::substr($src_image, 0, Str::position($src_image, ','));
                     $src_image = Str::of($src_image)->replace(' ', '%');
-
                     $image_name = Str::reverse($src_image);
                     $image_name = Str::substr($image_name, 0, Str::position($image_name, '/'));
                     $image_name = Str::reverse($image_name);
                     $image_name = Str::substr($image_name, 0, Str::position($image_name, '?'));
-
                     break;
+
                 case 'www.xataka.com.mx':
                     $alt_image = $crawler->filter('picture')->filter('img')->attr('alt');
                     $image = $crawler->selectImage($alt_image)->image();
                     break;
+
                 case 'medium.com':
                     $alt_image = $crawler->filter('picture')->filter('img')->attr('alt');
                     $image = $crawler->selectImage($alt_image)->image();
                     break;
+
                 case 'app.daily.dev':
                     $image = $crawler->selectImage('Post cover image')->image();
                     break;
+
                 case 'youtube.com':
                     $image_name = Str::substr($this->url, Str::position($this->url, 'v='), Str::length($this->url));
                     if (  Str::of($image_name)->contains('&') ) {
@@ -100,13 +100,13 @@ class SaveLink extends ModalComponent
                     }
                     $src_image = "http://img.youtube.com/vi/{$image_name}/mqdefault.jpg";
                     break;
+
                 default:
                     $image = $crawler->filter('picture')->filter('img')->attr('src');
                     break;
             }
 
             Storage::disk('public_thumbnails')->put($image_name, file_get_contents($src_image));
-            //Storage::disk('local')->delete('path/to/store/'.$filename);
 
             //dd(['page_title' => $page_title, 'platform' => $platform, 'src_image' => $src_image, 'image_name' => $image_name, 'link_list_id' => $this->link_list_id]);
 

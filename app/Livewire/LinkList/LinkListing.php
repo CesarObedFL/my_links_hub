@@ -2,6 +2,8 @@
 
 namespace App\Livewire\LinkList;
 
+use Illuminate\Support\Facades\Storage;
+
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\On;
@@ -78,7 +80,9 @@ class LinkListing extends Component
 
     public function delete_link( $link_id )
     {
-        Link::findOrFail($link_id)->delete();
+        $link = Link::findOrFail($link_id);
+        Storage::disk('public_thumbnails')->delete($link->thumbnail);
+        $link->delete();
         $this->alert('success', 'Link deleted successfully!...', [ 'position' => 'center', 'timer' => 3000 ]);
         $this->dispatch('refreshComponent');
     }
