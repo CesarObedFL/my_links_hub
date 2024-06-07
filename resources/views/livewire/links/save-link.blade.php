@@ -28,7 +28,7 @@
                 <select wire:model="link_list_id" class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option>Select a list...</option>
                     @foreach ( $link_list as $list )
-                        <option value="{{ $list->id }}">{{ $list->name }}</option>
+                        <option value="{{ $list->id }}">{{ $list->list_name }}</option>
                     @endforeach
                 </select>
             </div>

@@ -19,7 +19,7 @@ class ListCreate extends ModalComponent
     #[Validate('required|min:10', message: 'The list description must have more than 10 letters and is required!...')] 
     public $list_description;
 
-    #[Validate('required|image|max:2048', message: 'The list image couldn\'t be higer than 2kb and is required!')] 
+    #[Validate('required|image|max:102400', message: 'The list image couldn\'t be higer than 2mb and is required!')] 
     public $list_image;
 
 
