@@ -60,21 +60,23 @@ class SaveLink extends ModalComponent
 
             switch( $domain ) {
                 case 'cerebrodigital.net':
-
                     try {
                         $src_image = $crawler->filter('.wp-block-post-featured-image')->filter('img')->attr('srcset');
                     } catch (\InvalidArgumentException $e) {
                         $src_image = $crawler->filter('.wp-block-image')->filter('img')->attr('srcset');
                     } catch(\Exception $e) {
-                        $src_image = 'no_hay_imagen.jpg';
+                        $src_image = null;
+                        $image_name = null;
                     }
 
-                    $src_image = Str::substr($src_image, 0, Str::position($src_image, ','));
-                    $src_image = Str::of($src_image)->replace(' ', '%');
-                    $image_name = Str::reverse($src_image);
-                    $image_name = Str::substr($image_name, 0, Str::position($image_name, '/'));
-                    $image_name = Str::reverse($image_name);
-                    $image_name = Str::substr($image_name, 0, Str::position($image_name, '?'));
+                    if ( $src_image ) {
+                        $src_image = Str::substr($src_image, 0, Str::position($src_image, ','));
+                        $src_image = Str::of($src_image)->replace(' ', '%');
+                        $image_name = Str::reverse($src_image);
+                        $image_name = Str::substr($image_name, 0, Str::position($image_name, '/'));
+                        $image_name = Str::reverse($image_name);
+                        $image_name = Str::substr($image_name, 0, Str::position($image_name, '?'));
+                    }
                     break;
 
                 case 'www.xataka.com.mx':
