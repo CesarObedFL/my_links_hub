@@ -52,11 +52,15 @@ class SaveLink extends ModalComponent
                 $domain = 'medium.com';
             } elseif ( Str::of($this->url)->contains('youtu') ){
                 $domain = 'youtube.com';
+            } elseif ( Str::of($this->url)->contains('mercadolibre.com') ){
+                $domain = 'mercadolibre.com';
             } else {
-                $domain = Str::substr($this->url, 0, Str::position($this->url, '/'));
+                $domain = Str::substr($url, 0, Str::position($url, '/'));
             }
 
             $platform = $protocol . $domain;
+            $src_image = null;
+            $image_name = null;
 
             switch( $domain ) {
                 case 'cerebrodigital.net':
@@ -66,7 +70,6 @@ class SaveLink extends ModalComponent
                         $src_image = $crawler->filter('.wp-block-image')->filter('img')->attr('srcset');
                     } catch(\Exception $e) {
                         $src_image = null;
-                        $image_name = null;
                     }
 
                     if ( $src_image ) {
@@ -93,6 +96,31 @@ class SaveLink extends ModalComponent
                     $image = $crawler->selectImage('Post cover image')->image();
                     break;
 
+                case 'mercadolibre.com':
+                    try {
+                        $src_image = $crawler->filter('.ui-pdp-gallery__figure')->filter('img')->attr('src');
+                    } catch (\InvalidArgumentException $e) {
+                        $src_image = null;
+                    } catch(\Exception $e) {
+                        $src_image = null;
+                    }
+
+                    if ( $src_image ) {
+                        $image_name = Str::reverse($src_image);
+                        $image_name = Str::substr($image_name, 0, Str::position($image_name, '/'));
+                        $image_name = Str::reverse($image_name);
+                    }
+
+                    if ( Str::length($this->url) > 254 ) {
+                        $pos_reco_id = Str::position($this->url, 'reco_id=');
+                        $reco_id = Str::substr($this->url, $pos_reco_id, Str::length($this->url));
+                        $reco_id = Str::substr($reco_id, 0, Str::position($reco_id, '&'));
+                        $this->url = Str::substr($this->url, 0, Str::position($this->url, '#'));
+                        $this->url .= '#' . $reco_id;
+                    }
+                    
+                    break;
+
                 case 'youtube.com':
                     $image_name = Str::substr($this->url, Str::position($this->url, 'v='), Str::length($this->url));
                     if (  Str::of($image_name)->contains('&') ) {
@@ -104,15 +132,16 @@ class SaveLink extends ModalComponent
                     break;
 
                 default:
+                    $src_image = null;
                     $image_name = null;
                     break;
             }
 
+            //dd([ 'url' => $this->url, 'page_title' => $page_title, 'platform' => $platform, 'src_image' => $src_image, 'image_name' => $image_name, 'link_list_id' => $this->link_list_id ]);
+
             if ( $image_name ) {
                 Storage::disk('public_thumbnails')->put($image_name, file_get_contents($src_image));
             }
-
-            //dd(['page_title' => $page_title, 'platform' => $platform, 'src_image' => $src_image, 'image_name' => $image_name, 'link_list_id' => $this->link_list_id]);
 
             Link::create([
                 'url' => $this->url, 
