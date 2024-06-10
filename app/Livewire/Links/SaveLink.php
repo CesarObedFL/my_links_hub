@@ -38,7 +38,7 @@ class SaveLink extends ModalComponent
     {
         $this->validate();
 
-        if (Str::isUrl($this->url, ['http', 'https'])) {
+        if ( Str::isUrl($this->url, ['http', 'https']) ) {
 
             $client = new Client(HttpClient::create(['timeout' => 60]));
             $crawler = $client->request('GET', $this->url);
@@ -122,11 +122,15 @@ class SaveLink extends ModalComponent
                 'link_list_id' => $this->link_list_id
             ]);
 
-        }
+            $this->dispatch('link_saved');
+            $this->close();
+            $this->alert('success', 'Link saved successfully!...', [ 'position' => 'center', 'timer' => 2500 ]);
 
-        $this->dispatch('link_saved');
+        } //*/
+
         $this->close();
-        $this->alert('success', 'Link saved successfully!...', [ 'position' => 'center', 'timer' => 2500 ]);
+        $this->alert('error', 'Link can\'t be saved successfully!...', [ 'position' => 'center', 'timer' => 2500 ]);
+        
     }
 
     public function reset_fields()
