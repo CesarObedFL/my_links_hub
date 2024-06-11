@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Models\Link;
 use App\Models\LinkList;
+use App\Models\Tag;
+use App\Models\Taggings;
 
 use Goutte\Client;
 use Symfony\Component\HttpClient\HttpClient;
@@ -26,11 +28,14 @@ class SaveLink extends ModalComponent
     #[Validate('required', message: 'You must choose one list')] 
     public $link_list_id;
 
+    public $tag = '';
+    public $tags = [];
+
     protected $listeners = [ 'list_created' => 'create_list_alert', 'link_saved' => 'render', 'refreshComponent' => '$refresh'];
 
     public function render()
     {
-        return view('livewire.links.save-link', [ "link_list" => LinkList::all() ]);
+        return view('livewire.links.save-link', [ "link_list" => LinkList::all(), 'tag_list' => Tag::all() ]);
     }
 
     public function save()
@@ -142,7 +147,7 @@ class SaveLink extends ModalComponent
                 Storage::disk('public_thumbnails')->put($image_name, file_get_contents($src_image));
             }
 
-            Link::create([
+            $link = Link::create([
                 'url' => $this->url, 
                 'title' => $page_title, 
                 'platform' => $platform, 
@@ -150,27 +155,43 @@ class SaveLink extends ModalComponent
                 'link_list_id' => $this->link_list_id
             ]);
 
+            if ( count($this->tags) > 0 ) {
+                foreach( $this->tags as $tag ) {
+                    Taggings::create([ 'saved_link_id' => $link->id, 'tag_id' => $tag->id ]);
+                }
+            }
+
             $this->dispatch('link_saved');
             $this->close();
             $this->alert('success', 'Link saved successfully!...', [ 'position' => 'center', 'timer' => 2500 ]);
 
-        } //*/
-
-        $this->close();
-        $this->alert('error', 'Link can\'t be saved successfully!...', [ 'position' => 'center', 'timer' => 2500 ]);
+        } else {
+            $this->close();
+            $this->alert('error', 'Link can\'t be saved successfully!...', [ 'position' => 'center', 'timer' => 2500 ]);
+        }
         
     }
 
     public function reset_fields()
     {
-        $this->url = '';
-        $this->link_list_id = '';
+        $this->reset('url');
+        $this->reset('link_list_id');
+        $this->reset('tag');
+        $this->reset('tags');
     }
 
     public function close()
     {
         $this->reset_fields();
         $this->closeModal();
+    }
+
+    public function add_tag()
+    {
+        $t = Tag::findOrFail($this->tag);
+        $this->tags[] = $t;
+        $this->tag = '';
+        $this->dispatch('refreshComponent');
     }
 
     public static function modalMaxWidth(): string

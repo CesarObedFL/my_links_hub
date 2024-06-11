@@ -11,6 +11,8 @@ class Taggings extends Model
 
     protected $table = 'taggings';
 
+    public $timestamps = false;
+
     protected $fillable = [ 'saved_link_id', 'tag_id' ];
     
 }
