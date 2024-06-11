@@ -20,7 +20,11 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <button onclick="Livewire.dispatch('openModal', { component: 'link-list.list-create' })"> Create List</button>
+                    <button onclick="Livewire.dispatch('openModal', { component: 'link-list.list-create' })">Create List</button>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <button onclick="Livewire.dispatch('openModal', { component: 'tags.tag-create' })">Create Tag</button>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
