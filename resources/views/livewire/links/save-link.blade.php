@@ -20,7 +20,8 @@
             <div class="p-4 md:p-5 space-y-4">
                 <div class="col-span-2">
                     <label for="url" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Link</label>
-                    <input wire:model="url" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type the link to save..." required>
+                    <input wire:model="url" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type the link to save...">
+                    <div style="color: red;">@error('url') {{ $message }} @enderror</div>
                 </div>
             </div>
             <div class="p-4 md:p-5 space-y-4">
@@ -31,6 +32,7 @@
                         <option value="{{ $list->id }}">{{ $list->list_name }}</option>
                     @endforeach
                 </select>
+                <div style="color: red;">@error('link_list_id') {{ $message }} @enderror</div>
             </div>
             <!-- Modal footer -->
             <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">

@@ -3,6 +3,7 @@
 namespace App\Livewire\Links;
 
 use LivewireUI\Modal\ModalComponent;
+use Livewire\Attributes\Validate;
 use App\Http\Livewire\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
@@ -19,13 +20,11 @@ class SaveLink extends ModalComponent
 {
     use LivewireAlert;
 
+    #[Validate('required', message: 'The url is required!')] 
     public $url;
-    public $link_list_id;
 
-    protected $rules = [
-        'url' => 'required',
-        'link_list_id' => 'required'
-    ];
+    #[Validate('required', message: 'You must choose one list')] 
+    public $link_list_id;
 
     protected $listeners = [ 'list_created' => 'create_list_alert', 'link_saved' => 'render', 'refreshComponent' => '$refresh'];
 
