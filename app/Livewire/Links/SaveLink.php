@@ -31,7 +31,11 @@ class SaveLink extends ModalComponent
     public $tag = '';
     public $tags = [];
 
-    protected $listeners = [ 'list_created' => 'create_list_alert', 'link_saved' => 'render', 'refreshComponent' => '$refresh'];
+    protected $listeners = [ 
+        'list_created' => 'create_list_alert', 
+        'link_saved' => 'render', 
+        'refreshComponent' => '$refresh'
+    ];
 
     public function render()
     {
@@ -190,7 +194,7 @@ class SaveLink extends ModalComponent
     {
         $t = Tag::findOrFail($this->tag);
         $this->tags[] = $t;
-        $this->tag = '';
+        $this->reset('tag');
         $this->dispatch('refreshComponent');
     }
 

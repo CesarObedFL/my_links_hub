@@ -29,7 +29,7 @@
                 <select wire:model="link_list_id" class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option>Select a list...</option>
                     @foreach ( $link_list as $list )
-                        <option value="{{ $list->id }}">{{ $list->list_name }}</option>
+                        <option  wire:key="{{ $list->id }}" value="{{ $list->id }}">{{ $list->list_name }}</option>
                     @endforeach
                 </select>
                 <div style="color: red;">@error('link_list_id') {{ $message }} @enderror</div>
@@ -38,19 +38,19 @@
             <hr>
             <div class="p-4 md:p-5 space-y-4">
                 <div class="relative">
-                    <select wire:model="tag" class="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option>Select a tag...</option>
-                        @foreach ( $tag_list as $tag )
-                            <option value="{{ $tag->id }}">{{ $tag->title }}</option>
+                    <input wire:model="tag" list="tag-list" placeholder="Choose at least a tag..." class="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                    <datalist id="tag-list">
+                        @foreach ( $tag_list as $t )
+                            <option wire:key="{{ $t->id }}" value="{{ $t->id }}">{{ $t->title }}</option>
                         @endforeach
-                    </select>
+                    </datalist>
                     <button wire:click="add_tag" type="button" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Tag</button>
                 </div>
             </div>
             @if ( count($tags) > 0 )
                 <h2 class="mb-2 text-xs font-semibold text-gray-900 dark:text-white">Tag List</h2>
                 <ul class="flex flex-wrap items-center justify-center text-gray-900 dark:text-white">
-                    @foreach ($tags as $key => $t)
+                    @foreach ($tags as $t)
                         <li class="me-4 hover:underline md:me-6">{{ $t->title }}</li>
                     @endforeach
                 </ul>
