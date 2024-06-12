@@ -16,17 +16,16 @@
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" class="px-6 py-3"> 
-                                    <label for="small" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Per Page</label>
-                                    <select wire:model.live="per_page" class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <th colspan="2" scope="colgroup" class="px-6 py-3"> 
+                                    <select wire:model.live="per_page" class="block w-full p-2 mt-6 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         <option value="10">10 per page</option>
                                         <option value="25">25 per page</option>
                                         <option value="50">50 per page</option>
                                     </select>
                                 </th>
-                                <th colspan="4" scope="colgroup" class="px-6 py-3"> 
+                                <th colspan="3" scope="colgroup" class="px-6 py-3"> 
                                     <input wire:model.live="search" type="search" placeholder="search by..." class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                </th> <!-- /. div col-md-9 -->
+                                </th>
                             </tr>
                             <tr>
                                 <th scope="col" class="px-6 py-3"> 
@@ -113,12 +112,15 @@
                                         {{ $link->platform }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ $link->title }}
+                                        <div class="w-full p-2 text-left bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                                            <h5 class="mb-1 font-bold text-gray-900 dark:text-white">{{ $link->title }}</h5>
+                                            <p class="mb-2 text-sm text-gray-500 sm:text-sm dark:text-gray-400"> | @foreach ($link->tags as $tag ) {{ $tag->title . ' | ' }} @endforeach </p>
+                                        </div>
                                     </td>
                                     <td class="px-6 py-4">
                                         {{ date_format($link->created_at, "d-m-Y") }}
                                     </td>
-                                    <td class="px-6 py-4 mt-5 text-right flex items-center flex-nowrap">
+                                    <td class="px-6 py-4 my-8 text-right flex items-center flex-nowrap">
                                         <a href="{{ $link->url }}" target="_blank">
                                             <svg class="flex-grow-0 flex-shrink-0 mr-2 text-gray-400 dark:text-gray-500 w-5 h-5 mx-auto" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"/>

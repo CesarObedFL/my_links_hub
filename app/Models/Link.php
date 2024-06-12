@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Link extends Model
 {
@@ -20,6 +21,11 @@ class Link extends Model
     public function link_list(): BelongsTo
     {
         return $this->belongsTo(LinkList::class);
+    }
+
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class, 'taggings', 'saved_link_id', 'tag_id');
     }
     
 }

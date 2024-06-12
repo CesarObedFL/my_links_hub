@@ -54,10 +54,12 @@ class LinkListing extends Component
         $_search = $this->search;
         return view('livewire.link-list.link-listing', [ 'list_name' => $this->list_name, 
                                                         'link_list' => Link::whereRelation('link_list', 'id', $this->list_id)
-                                                                        ->where(function($query) use ($_search) {
+                                                                        ->whereRelation('tags', 'title', 'LIKE', "#%{$_search}%")
+                                                                        ->orWhere(function($query) use ($_search) {
                                                                             $query->when($_search, function($query, $_search) {
-                                                                                if( $_search != '' )
+                                                                                if( $_search != '' ) {
                                                                                     return $query->where('platform', 'LIKE', "%{$_search}%")->orWhere('title', 'LIKE', "%{$_search}%");
+                                                                                }
                                                                                 return $query;
                                                                             });
                                                                         })
