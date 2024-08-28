@@ -3,13 +3,15 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use Livewire\WithPagination;
+use Livewire\Attributes\On;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 use App\Models\LinkList;
 
 class Dashboard extends Component
 {
-    use LivewireAlert;
+    use WithPagination, LivewireAlert;
 
     protected $listeners = [ 'list_created' => 'create_list_alert', 'link_saved' => 'link_saved_alert' ];
 
@@ -24,7 +26,18 @@ class Dashboard extends Component
 
     public function render()
     {
-        return view('livewire.dashboard', [ 'lists' => LinkList::all() ])->layout('layouts.app');
+        $_search = $this->search;
+        return view('livewire.dashboard', [ 'lists' => LinkList::where(function($query) use ($_search) {
+                                                                $query->when($_search, function($query, $_search) {
+                                                                    if( $_search != '' ) {
+                                                                        return $query->where('list_name', 'LIKE', "%{$_search}%");
+                                                                    }
+                                                                    return $query;
+                                                                });
+                                                            })
+                                                            ->orderBy('list_name', 'asc')
+                                                            ->get()
+                                            ])->layout('layouts.app');
     }
 
     public function create_list_alert()
