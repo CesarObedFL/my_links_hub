@@ -3,22 +3,18 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use Livewire\WithPagination;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 use App\Models\LinkList;
 
 class Dashboard extends Component
 {
-    use WithPagination, LivewireAlert;
+    use LivewireAlert;
 
     protected $listeners = [ 'list_created' => 'create_list_alert', 'link_saved' => 'link_saved_alert' ];
 
-    protected $queryString = [ 'search' => [ 'except' => '' ], 'per_page' ];
+    protected $queryString = [ 'search' => [ 'except' => '' ] ];
 
-    public $per_page = 10;
-    public $order_by = 'created_at';
-    public $sort_direction = 'desc';
     public $search = '';
 
     public function updatingSearch()
