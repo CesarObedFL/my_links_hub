@@ -13,7 +13,11 @@ class Dashboard extends Component
 {
     use WithPagination, LivewireAlert;
 
-    protected $listeners = [ 'list_created' => 'create_list_alert', 'link_saved' => 'link_saved_alert' ];
+    protected $listeners = [ 
+        'list_created' => 'create_list_alert', 
+        'link_saved' => 'link_saved_alert',
+        'list_deleted' => 'deleted_list_alert',
+    ];
 
     protected $queryString = [ 'search' => [ 'except' => '' ] ];
 
@@ -48,5 +52,10 @@ class Dashboard extends Component
     public function link_saved_alert()
     {
         $this->alert('success', 'Link saved successfully!...', [ 'position' => 'center', 'timer' => 2500 ]);
+    }
+
+    public function deleted_list_alert()
+    {
+        $this->alert('success', 'List deleted successfully!...', [ 'position' => 'center', 'timer' => 2500 ]);
     }
 }
