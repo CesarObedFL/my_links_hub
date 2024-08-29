@@ -30,7 +30,7 @@
                 <button wire:click="close" type="button" data-modal-hide="default-modal" class="bg-red-300 text-white text-center text-sm font-medium rounded-lg px-5 py-2.5 ms-3 duration-300 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-800 focus:z-10">Cancel</button>
             </div>
 
-            <span wire:loading>Saving...</span> 
+            <span wire:loading class="p-3">Saving...</span> 
         </form>
 
     </div> <!-- /. class="relative p-4 w-full max-w-2xl" -->

@@ -31,7 +31,7 @@
                 <button wire:click="close" type="button" data-modal-hide="default-modal" class="bg-red-300 text-white py-2.5 px-5 ms-3 text-sm font-medium border rounded-lg duration-300 hover:bg-red-600 focus:z-10 focus:outline-none focus:ring-4 focus:ring-red-600"> Cancel </button>
             </div>
 
-            <span wire:loading>Loading...</span> 
+            <span wire:loading class="p-3">Loading...</span> 
         </form>
     </div>
 
