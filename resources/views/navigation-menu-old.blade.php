@@ -19,47 +19,16 @@
                     </x-nav-link>
                 </div>
 
-                <div class="flex ml-2 space-x-8 sm:-my-px sm:ms-10">
-                    <button onclick="Livewire.dispatch('openModal', { component: 'link-list.list-create' })"
-                        class="text-sm p-1 my-4 rounded-md duration-300 hover:bg-slate-300">
-                        <div class="flex items-center">
-                            <div class="text-slate-300 w-5 h-5 mx-2 duration-300 hover:text-blue-800">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" />
-                                </svg>
-                            </div>
-                            <span class="hidden md:block">Create List</span>
-                        </div>
-                    </button>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <button onclick="Livewire.dispatch('openModal', { component: 'link-list.list-create' })">Create List</button>
                 </div>
 
-                <div class="flex ml-2 space-x-8 sm:-my-px sm:ms-10">
-                    <button onclick="Livewire.dispatch('openModal', { component: 'tags.tag-create' })"
-                        class="text-sm p-1 my-4 rounded-md duration-300 hover:bg-slate-300">
-                        <div class="flex items-center">
-                            <div class="text-slate-300 w-5 h-5 mx-2 duration-300 hover:text-blue-800">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
-                                </svg>
-                            </div>
-                            <span class="hidden md:block">Create Tag</span>
-                        </div>
-                    </button>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <button onclick="Livewire.dispatch('openModal', { component: 'tags.tag-create' })">Create Tag</button>
                 </div>
 
-                <div class="flex ml-2 space-x-8 sm:-my-px sm:ms-10">
-                    <button onclick="Livewire.dispatch('openModal', { component: 'links.save-link' })"
-                        class="text-sm p-1 my-4 rounded-md duration-300 hover:bg-slate-300">
-                        <div class="flex items-center">
-                            <div class="text-slate-300 w-5 h-5 mx-2 duration-300 hover:text-blue-800">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
-                                </svg>
-                            </div>
-                            <span class="hidden md:block">Save Link</span>
-                        </div>
-                    </button>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <button onclick="Livewire.dispatch('openModal', { component: 'links.save-link' })">Save Link</button>
                 </div>
                 
             </div>

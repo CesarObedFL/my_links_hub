@@ -40,7 +40,7 @@
                 {{ $slot }}
             </main>
 
-            <footer class="bg-white py-10 border-t-2 border-t-slate-600">
+            <footer class="bg-white py-10 border-t-1 border-t-slate-600">
                 <div class="flex flex-col max-w-7xl mx-auto items-center space-y-4 md:flex-row md:justify-between md:space-y-0">
                     <div class="text-center text-sm text-slate-400"> 
                         &copy; 2024 All Rights Reserved
