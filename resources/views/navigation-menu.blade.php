@@ -11,15 +11,23 @@
                     </a>
                 </div>
 
-
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                <div class="flex ml-2 space-x-8 pt-1 sm:-my-px sm:ms-10">
+                    <a href="{{ route('dashboard') }}" class="text-sm p-1 my-4 rounded-md duration-300 hover:bg-slate-100">
+                        <div class="flex items-center">
+                            <div class="text-slate-400 w-5 h-5 mx-2 duration-300 hover:text-blue-800">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 0 1-1.125-1.125v-3.75ZM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-8.25ZM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-2.25Z" />
+                                </svg>
+                            </div>
+                            <div class="hidden lg:block">
+                                {{ __('Dashboard') }}
+                            </div>
+                        </div>
+                    </a>
                 </div>
 
-                <div class="flex ml-2 space-x-8 sm:-my-px sm:ms-10">
+                <div class="flex space-x-8 sm:-my-px sm:ms-10">
                     <button onclick="Livewire.dispatch('openModal', { component: 'link-list.list-create' })"
                         class="text-sm p-1 my-4 rounded-md duration-300 hover:bg-slate-100">
                         <div class="flex items-center">
@@ -28,7 +36,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" />
                                 </svg>
                             </div>
-                            <span class="hidden md:block">Create List</span>
+                            <span class="hidden lg:block">Create List</span>
                         </div>
                     </button>
                 </div>
@@ -43,7 +51,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
                                 </svg>
                             </div>
-                            <span class="hidden md:block">Create Tag</span>
+                            <span class="hidden lg:block">Create Tag</span>
                         </div>
                     </button>
                 </div>
@@ -57,7 +65,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
                                 </svg>
                             </div>
-                            <span class="hidden md:block">Save Link</span>
+                            <span class="hidden lg:block">Save Link</span>
                         </div>
                     </button>
                 </div>
