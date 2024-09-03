@@ -120,18 +120,21 @@
                                     <td class="px-6 py-4">
                                         {{ date_format($link->created_at, "d-m-Y") }}
                                     </td>
-                                    <td class="px-6 py-4 my-8 text-right flex items-center flex-nowrap">
-                                        <a href="{{ $link->url }}" target="_blank">
-                                            <svg class="flex-grow-0 flex-shrink-0 mr-2 text-gray-400 w-5 h-5 mx-auto" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"/>
-                                            </svg>
-                                        </a> 
-                                        &nbsp;
-                                        <button wire:click="delete_link('{{ $link->id }}')">
-                                            <svg class="flex-grow-0 flex-shrink-0 text-gray-400 w-5 h-5 mx-auto" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                                            </svg>
-                                        </button>
+                                    <td class="px-6 py-4 text-right flex items-center justify-center space-x-2 min-h-12">
+                                        <div class="flex p-5 md:pt-8 lg:pt-12">
+                                            <div class="flex flex-col justify-center space-y-4">
+                                                <a href="{{ $link->url }}" target="_blank">
+                                                    <svg class="flex-grow-0 flex-shrink-0 text-slate-400 w-5 h-5 mx-auto duration-300 hover:text-blue-800 hover:translate-x-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
+                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"/>
+                                                    </svg>
+                                                </a> 
+                                                <button wire:click="delete_link('{{ $link->id }}')">
+                                                    <svg class="flex-grow-0 flex-shrink-0 text-slate-400 w-5 h-5 mx-auto duration-300 hover:text-red-800 hover:scale-125" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
