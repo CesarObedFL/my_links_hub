@@ -24,6 +24,8 @@ This is a system to save your favorites webpages links and organize it into list
 
 - php ^8.2
 - composer ^2.6.2 
+- node ^20.12.2
+
 
 ## _installation_
 
@@ -31,6 +33,15 @@ This is a system to save your favorites webpages links and organize it into list
 git clone _repo_url_
 composer install
 npm install
+```
+
+## _running_
+```
+php artisan key:generate
+php artisan migrate --seed
+php artisan storage:link
+
+npm run build
 ```
 
 
