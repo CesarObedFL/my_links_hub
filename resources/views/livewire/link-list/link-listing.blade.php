@@ -124,12 +124,14 @@
                                     <td class="px-6 py-4 text-right flex items-center justify-center space-x-2 min-h-12">
                                         <div class="flex p-5 md:pt-8 lg:pt-12">
                                             <div class="flex flex-col justify-center space-y-4">
-                                                <a href="{{ $link->url }}" target="_blank">
+                                                <a href="{{ $link->url }}" target="_blank" class='has-tooltip'>
+                                                    <span class='tooltip rounded shadow-lg p-1 bg-gray-300 text-blue-800 -mt-[30px]'>Go</span>
                                                     <svg class="flex-grow-0 flex-shrink-0 text-slate-400 w-3 h-3 md:w-5 md:h-5 mx-auto duration-300 hover:text-blue-800 hover:translate-x-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
                                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"/>
                                                     </svg>
                                                 </a> 
-                                                <button wire:click="delete_link('{{ $link->id }}')">
+                                                <button wire:click="delete_link('{{ $link->id }}')" class='has-tooltip'>
+                                                    <span class='tooltip rounded shadow-lg p-1 bg-gray-300 text-red-800 -mt-[30px]'>Delete</span>
                                                     <svg class="flex-grow-0 flex-shrink-0 text-slate-400 w-3 h-3 md:w-5 md:h-5 mx-auto duration-300 hover:text-red-800 hover:scale-125" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
                                                     </svg>
@@ -187,12 +189,14 @@
                                             <span class="ml-3 text-sm text-slate-300">{{ date_format($link->created_at, "d-m-Y") }}</span>
                                         </div>
                                         <div class="flex justify-between p-5">
-                                            <a href="{{ $link->url }}" target="_blank">
+                                            <a href="{{ $link->url }}" target="_blank" class="has-tooltip">
+                                                <span class='tooltip rounded shadow-lg p-1 bg-gray-300 text-blue-800 -mt-[30px]'>Go</span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 text-slate-400 duration-300 hover:text-blue-800 hover:translate-x-3">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" />
                                                 </svg>
                                             </a>
-                                            <button wire:click="delete_link('{{ $link->id }}')">
+                                            <button wire:click="delete_link('{{ $link->id }}')" class="has-tooltip">
+                                                <span class='tooltip rounded shadow-lg p-1 bg-gray-300 text-red-800 -mt-[30px] -ml-[50px]'>Delete</span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 text-slate-400 duration-300 hover:text-red-800 hover:scale-125">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                                                 </svg>
