@@ -155,6 +155,18 @@
 
                     <!-- mobile table responsive -->
                     <div class="block sm:hidden">
+                        <div class="grid grid-cols-3 gap-4 items-center">
+                            <div class="px-2 py-3 col-span-1"> 
+                                <select wire:model.live="per_page"  class="block w-full p-2 mt-6 mb-6 text-sm text-slate-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="3">10 per page</option>
+                                    <option value="6">25 per page</option>
+                                    <option value="10">50 per page</option>
+                                </select>
+                            </div>
+                            <div class="px-2 py-3 col-span-2"> 
+                                <input wire:model.live="search" type="search" placeholder="search by..." class="block w-full p-2.5 text-sm text-slate-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                        </div>
                         <div class="grid grid-cols-1 gap-3">
                             @foreach( $link_list as $link )
                                 <article class="bg-white h-100 w-200 grid grid-cols-2 shadow-lg rounded overflow-hidden">
