@@ -26,6 +26,7 @@ class LinkListing extends Component
         'page' => [ 'except' => 1 ],
         'platform' => [ 'except' => 'all' ], 
         'title' => [ 'except' => 'all' ], 
+        'list_name',
         'per_page' 
     ];
 
@@ -36,7 +37,6 @@ class LinkListing extends Component
     public $search = '';
 
     public $list_id;
-    public $list_name;
 
     public function updatingSearch()
     {
@@ -46,13 +46,12 @@ class LinkListing extends Component
     public function mount($id)
     {
         $this->list_id = $id;
-        $this->list_name = LinkList::select('list_name')->where('id', $id)->get()[0];
     }
 
     public function render()
     {
         $_search = $this->search;
-        return view('livewire.link-list.link-listing', [ 'list_name' => $this->list_name, 
+        return view('livewire.link-list.link-listing', [ 'list_name' => LinkList::select('list_name')->where('id', $this->list_id)->get()[0], 
                                                         'link_list' => Link::whereRelation('link_list', 'id', $this->list_id)
                                                                         ->where(function($query) use ($_search) {
                                                                             $query->when($_search, function($query, $_search) {
