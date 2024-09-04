@@ -179,12 +179,12 @@
                                     </div>
                                     <div>
                                         <div class="p-5 space-y-3 flex-1">
-                                            <h3 class="text-sm font-semibold text-slate-400">{{ $link->platform }}</h3>
+                                            <h3 class="ml-2 text-sm font-semibold text-slate-400">{{ $link->platform }}</h3>
                                             <div class="w-full p-2 text-left">
                                                 <h5 class="mb-1 text-xs font-bold text-gray-900 lg:text-base">{{ $link->title }}</h5>
                                                 <p class="mb-2 text-xs text-slate-500 lg:text-base"> @foreach ($link->tags as $tag ) {{ '#'.$tag->title.' ' }} @endforeach </p>
                                             </div>
-                                            <span>{{ date_format($link->created_at, "d-m-Y") }}</span>
+                                            <span class="ml-3 text-sm text-slate-300">{{ date_format($link->created_at, "d-m-Y") }}</span>
                                         </div>
                                         <div class="flex justify-between p-5">
                                             <a href="{{ $link->url }}" target="_blank">
