@@ -14,7 +14,7 @@
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
 
                     <!-- md, lg xl screen size table -->
-                    <table class="w-full hidden sm:block text-sm text-left table-auto rtl:text-right text-gray-500">
+                    <table class="w-full text-sm text-left table-auto rtl:text-right text-gray-500 mx-auto border border-gray-200 rounded">
                         <thead class="text-xs text-gray-700 uppercase bg-sky-200">
                             <tr>
                                 <th colspan="1" scope="colgroup" class="px-2 py-3"> 
